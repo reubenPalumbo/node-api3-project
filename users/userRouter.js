@@ -40,7 +40,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", [validateUserId], (req, res) => {
-  const { id } = req.parmas;
+  const { id } = req.params;
   db.getById(id)
     .then((user) => {
       res.status(200).json(user);
@@ -100,8 +100,8 @@ router.put("/:id", [validateUserId, validatePost], (req, res) => {
 //custom middleware
 
 function validateUserId(req, res, next) {
-  const { id } = req.parmas;
-  db.findById(id).then((data) => {
+  const { id } = req.params;
+  db.getById(id).then((data) => {
     if (data) {
       req.user = data;
       next();
